@@ -117,23 +117,22 @@ def parse_line(line, inputs, outputs, gates):
         'level': -1  # Initialize level as -1
     }
 
-# Computes and assigns levels for each gate in the circuit based on the input levels
+
 def compute_levels(inputs, gates):
-  # Initialize a queue with the keys (node names) of the inputs
     queue = list(inputs.keys())
 
-  # Continue processing as long as the queue is not empty
+  
     while queue:
         current = queue.pop(0)
-       # Iterate through each gate in the gates dictionary
+      
         for gate_name, gate_info in gates.items():
             if current in gate_info['input_wires']:
-              # Update the level of the gate
+             
                 gate_info['level'] = max(gate_info['level'], inputs[current] + 1)
-               # If the new level is higher than its current level in inputs dictionary, update it
+              
                 if gate_info['level'] > inputs.get(gate_name, -1):
                     inputs[gate_name] = gate_info['level']
-                  # Add the gate to the queue for further processing
+                 
                     queue.append(gate_name)
 
 
